@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
-const { forwardAuthenticated } = require('../config/auth');
+const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 
 //User model
 const User = require('../models/User');
@@ -30,14 +30,14 @@ router.post('/signup', function (req,res) {
         errors.push({ msg: 'Please fill in all the fields' });
     }
 
-    //Check password match
-    if(password != password2) {
-        errors.push({ msg: 'Passwords do not match' });
-    }
-
     //Check password length
-    if(password.length < 6) {
+    else if(password.length < 6) {
         errors.push({ msg: 'Password should be atleast 6 characters long' });
+    }
+    
+    //Check password match
+    else if(password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
     }
 
     if(errors.length > 0) {

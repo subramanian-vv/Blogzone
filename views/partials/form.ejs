@@ -1,0 +1,36 @@
+<div class="form-group">
+    <label for="title"> Title </label>
+    <input 
+        type="text"
+        name="title"
+        id="title"
+        class="form-control"
+        placeholder="Enter title"
+        value="<%= typeof article.title != 'undefined' ? title : '' %>"
+    />
+</div>
+
+<div class="form-group">
+    <label for="description"> Description </label>
+    <textarea 
+        name="description"
+        id="description"
+        class="form-control"
+        placeholder="Enter description"
+        required
+    ><%= typeof article.description != 'undefined' ? description : '' %></textarea>
+</div>
+
+<div class="form-group">
+    <label for="content"> Content </label>
+    <textarea 
+        name="content"
+        id="content"
+        class="form-control"
+        rows="10"
+        placeholder="Enter the content of the article"
+        required
+    ><%= typeof article.content != 'undefined' ? content : '' %></textarea>
+</div>
+
+<button class="btn btn-primary"> Submit </button>

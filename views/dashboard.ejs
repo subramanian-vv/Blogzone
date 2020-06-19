@@ -1,4 +1,23 @@
 <%- include('./partials/messages.ejs'); %>
-<h1 class="mt-4">Dashboard </h1>
-<p class="lead mb-3">Welcome <%= name %></p>
-<a href="/logout" class="btn btn-secondary">Logout</a>
+<%- include('./partials/nav.ejs'); %>
+
+<h1 class="mb-3 mt-4 text-center">Welcome <%= name %> !</h1>
+
+<% articles.forEach(function (article) { %>
+
+    <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= article.title %></h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= article.createdDate.toLocaleDateString() %>
+          </div>
+          <div class="card-text mb-2"><%= article.description %></div>
+          <a href="articles/<%= article.slug %>" class="btn btn-primary">Read More</a>
+          <a href="articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+          <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+
+<% }) %>
