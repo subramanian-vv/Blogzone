@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -13,7 +14,7 @@ require('./config/passport')(passport);
 //DB Config
 const db = require('./config/keys').MongoURI; 
 
-mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     .then(function() {
         console.log('MongoDB connected..')
     })
@@ -27,6 +28,9 @@ app.set('view engine', 'ejs');
 
 //Body Parser
 app.use(express.urlencoded({ extended: false }));
+
+//Method override for DELETE
+app.use(methodOverride('_method'));
 
 //Express session middleware
 app.use(session({

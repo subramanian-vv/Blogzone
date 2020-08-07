@@ -24,7 +24,7 @@ router.get('/feed', ensureAuthenticated, async function (req, res) {
     });
 });
 
-router.get('/myarticles', ensureAuthenticated, async function (req, res) {
+router.get('/articles', ensureAuthenticated, async function (req, res) {
     const articles = await Article.find({ email: req.user.email }).sort({ createdDate: 'desc' });
     res.render('myarticles', { 
         name: req.user.name,
@@ -36,7 +36,7 @@ router.get('/new', ensureAuthenticated, function (req, res) {
     res.render('new', { article: new Article() });
 });
 
-router.post('/myarticles', function(req, res) {
+router.post('/articles', function(req, res) {
     const { title, description, content } = req.body;
     const email = req.user.email;
     const name = req.user.name;
@@ -58,7 +58,7 @@ router.post('/myarticles', function(req, res) {
     newArticle.save()
         .then(function(article) {
             req.flash('success_msg', 'The article has been saved');
-            res.redirect('/user/myarticles');
+            res.redirect('/user/articles');
         })
         .catch(function(err) {
             console.log(err);
@@ -71,9 +71,26 @@ router.post('/myarticles', function(req, res) {
         });
 }); 
 
-router.get('/:id', async function (req, res) {
-    const article = await Article.findById(req.params.id);
+router.get('/feed/:slug', async function (req, res) {
+    const article = await Article.findOne({ slug: req.params.slug });
+    if(article == null) {
+        res.redirect('/user/feed');
+    }
     res.render('show', {article: article});
+});
+
+router.get('/articles/:slug', async function (req, res) {
+    const article = await Article.findOne({ slug: req.params.slug });
+    if(article == null) {
+        res.redirect('/user/feed');
+    }
+    res.render('show', {article: article});
+});
+
+router.delete('/articles/:id', async function (req, res) {
+    await Article.findByIdAndDelete(req.params.id);
+    req.flash('error_msg', 'The article has been deleted');
+    res.redirect('/user/articles');
 })
 
 module.exports = router;

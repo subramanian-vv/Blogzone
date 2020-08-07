@@ -15,7 +15,7 @@
             <%= article.createdDate.toLocaleDateString() %>
           </div>
           <div class="card-text mb-2"><%= article.description %></div>
-          <a href="/user/<%= article.id %>" class="btn btn-primary">Read More</a>
+          <a href="/user/feed/<%= article.slug %>" class="btn btn-primary">Read More</a>
         </div>
       </div>
 

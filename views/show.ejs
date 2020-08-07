@@ -6,4 +6,4 @@
 <div class="mb-2"> Created on: 
     <span class="text-muted"> <%= article.createdDate.toLocaleDateString() %> </span>
 </div>
-<p class="mb-2"> <%= article.content %> </p>
+<p class="mb-2"> <%- article.sanitizedHtml %> </p>
