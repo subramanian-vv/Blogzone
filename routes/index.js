@@ -94,7 +94,7 @@ router.post('/signup', function (req,res) {
 //Login handle
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', {
-        successRedirect: '/dashboard', 
+        successRedirect: '/user/feed', 
         failureRedirect: '/login',
         failureFlash: true
     })(req, res, next);

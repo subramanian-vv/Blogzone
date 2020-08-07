@@ -1,0 +1,9 @@
+<%- include('./partials/messages.ejs'); %>
+<%- include('./partials/nav.ejs'); %>
+
+<h1 class="mb-2"> <%= article.title %> </h1>
+<div class="mb-2"> Created by: <%= article.name %> </div>
+<div class="mb-2"> Created on: 
+    <span class="text-muted"> <%= article.createdDate.toLocaleDateString() %> </span>
+</div>
+<p class="mb-2"> <%= article.content %> </p>

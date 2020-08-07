@@ -14,6 +14,6 @@ module.exports = {
             return next();
         }
         req.flash('error_msg', 'You are already logged in!');
-        res.redirect('/dashboard');
+        res.redirect('/user/feed');
     }
 };
