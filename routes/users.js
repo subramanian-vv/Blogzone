@@ -83,7 +83,7 @@ router.get('/feed/:slug', async function (req, res) {
 router.get('/articles/:slug', async function (req, res) {
     const article = await Article.findOne({ slug: req.params.slug });
     if(article == null) {
-        res.redirect('/user/feed');
+        res.redirect('/user/articles');
     }
     res.render('show', {article: article});
 });
