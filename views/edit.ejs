@@ -1,8 +1,8 @@
 <%- include('./partials/messages.ejs'); %>
 <%- include('./partials/nav.ejs'); %>
 
-<h1 class="mb-3 mt-2 text-center"> New Article </h1>
+<h1 class="mb-4"> Edit article </h1>
 
-<form action="/user/articles" method="POST">
+<form action="/user/articles/<%= article.id %>?_method=PUT" method="post">
     <%- include('./partials/form') %>
 </form>

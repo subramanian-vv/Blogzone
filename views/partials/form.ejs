@@ -7,7 +7,7 @@
         class="form-control"
         placeholder="Enter title"
         required
-        value="<%= typeof article.title != 'undefined' ? title : '' %>"
+        value="<%= article.title %>"
     />
 </div>
 
@@ -19,7 +19,7 @@
         class="form-control"
         placeholder="Enter description"
         required
-    ><%= typeof article.description != 'undefined' ? description : '' %></textarea>
+    ><%= article.description %></textarea>
 </div>
 
 <div class="form-group">
@@ -31,7 +31,7 @@
         rows="10"
         placeholder="Enter the content of the article"
         required
-    ><%= typeof article.content != 'undefined' ? content : '' %></textarea>
+    ><%= article.content %></textarea>
 </div>
 
 <button class="btn btn-primary"> Submit </button>
