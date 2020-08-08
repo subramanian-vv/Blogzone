@@ -77,7 +77,7 @@ router.get('/feed/:slug', async function (req, res) {
     if(article == null) {
         res.redirect('/user/feed');
     }
-    res.render('show', {article: article});
+    res.render('show', {article: article, name: req.user.name});
 });
 
 router.get('/articles/:slug', async function (req, res) {
@@ -85,7 +85,7 @@ router.get('/articles/:slug', async function (req, res) {
     if(article == null) {
         res.redirect('/user/articles');
     }
-    res.render('show', {article: article});
+    res.render('show', {article: article, name: req.user.name});
 });
 
 router.delete('/articles/:id', async function (req, res) {
@@ -96,7 +96,7 @@ router.delete('/articles/:id', async function (req, res) {
 
 router.get('/articles/edit/:id', async function (req, res) {
     const article = await Article.findById(req.params.id);
-    console.log(article.title);
+    // console.log(article.title);
     res.render('edit', { 
         title: req.body.title,
         description: req.body.description,
@@ -113,7 +113,7 @@ router.put('/articles/:id', async function (req, res) {
     article.content = req.body.content;
     try {
         article = await article.save();
-        console.log("Done");
+        // console.log("Done");
         req.flash('success_msg', 'The article has been updated');
         res.redirect('/user/articles');
     } 
@@ -125,7 +125,7 @@ router.put('/articles/:id', async function (req, res) {
             content: req.body.content,
             article: article });
         req.flash('error_msg', 'Please fill all the fields');
-        console.log("ERRORRRRRRRRRRRRRR!!!");
+        // console.log("ERRORRRRRRRRRRRRRR!!!");
     }
 });
 

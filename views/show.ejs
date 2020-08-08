@@ -16,4 +16,12 @@
 
 </div>
 
-<a href="window.history.back()" class="btn btn-dark mt-4"> Back </a>
+<% if(article.name == name) { %>
+<a href="/user/articles" class="btn btn-dark btn-lg mt-4 mr-2"> Back </a>
+<a href="/user/articles/edit/<%= article.id %>" class="btn btn-info btn-lg mt-4 mr-2"> Edit </a>
+<form action="/user/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+    <button type="submit" class="btn btn-primary btn-lg mt-4">Delete</button>
+  </form>
+<% } else { %>
+    <a href="/user/feed" class="btn btn-dark btn-lg mt-4"> Back </a>
+<% } %>

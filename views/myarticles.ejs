@@ -3,6 +3,11 @@
 
 <h1 class="mb-3 mt-4 text-center">Welcome to your articles, <%= name %> !</h1>
 
+<% if(articles.length == 0) { %>
+  <hr>
+  <h4 class="mt-4 text-center"> You haven't written any article yet! <a href="/user/new" class="alert-link"> Get started </a> </h4>
+<% } %>
+
 <% articles.forEach(function (article) { %>
 
     <div class="card mt-4 border-dark">
@@ -12,8 +17,8 @@
         <div class="card-body">
           <div class="card-title mb-4"> Description: <strong> <%= article.description %> </strong> </div>
           <hr>
-          <a href="/user/articles/<%= article.slug %>" class="btn btn-success btn-lg">Read </a>
-          <a href="/user/articles/edit/<%= article.id %>" class="btn btn-info btn-lg">Edit</a>
+          <a href="/user/articles/<%= article.slug %>" class="btn btn-success btn-lg mr-2">Read </a>
+          <a href="/user/articles/edit/<%= article.id %>" class="btn btn-info btn-lg mr-2">Edit</a>
           <form action="/user/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
             <button type="submit" class="btn btn-primary btn-lg">Delete</button>
           </form>

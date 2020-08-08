@@ -9,7 +9,7 @@ const { forwardAuthenticated, ensureAuthenticated } = require('../config/auth');
 const User = require('../models/User');
 
 router.get('/', forwardAuthenticated, function (req, res) {
-    res.render('index');
+    res.redirect('/login');
 });
 
 router.get('/login', forwardAuthenticated, function (req, res) {
