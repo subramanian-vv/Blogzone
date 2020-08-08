@@ -5,18 +5,19 @@
 
 <% articles.forEach(function (article) { %>
 
-    <div class="card mt-4">
-      <h3 class="card-header">
+    <div class="card mt-4 border-dark">
+      <h3 class="card-header text-center">
         <%= article.title %>
       </h3>
         <div class="card-body">
-          <h5 class="card-title"> by <%= article.name %></h5>
-          <div class="card-subtitle text-muted mb-2">
-            <%= article.createdDate.toLocaleDateString() %>
-          </div>
-          <div class="card-text mb-2"><%= article.description %></div>
-          <a href="/user/feed/<%= article.slug %>" class="btn btn-primary">Read More</a>
+          <div class="card-title mb-4"> Description: <strong> <%= article.description %> </strong> </div>
+          <hr>
+          <a href="/user/feed/<%= article.slug %>" class="btn btn-primary btn-lg">Read </a>
         </div>
-      </div>
+        <div class="card-footer mb-2"> Created on : <strong> <%= article.createdDate.toLocaleDateString() %> </strong>
+          <div class="float-right"> Created by: <strong> <%= article.name %> </strong> </div>
+        </div>
+
+    </div>
 
 <% }) %>
