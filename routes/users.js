@@ -9,6 +9,7 @@ const User = require('../models/User');
 //Article model
 const Article = require('../models/Article');
 
+//Feed
 router.get('/feed', ensureAuthenticated, async function (req, res) {
     const articles = await Article.find().sort({ createdDate: 'desc' });
     for(var i = 0; i < articles.length; i++) {
@@ -23,6 +24,7 @@ router.get('/feed', ensureAuthenticated, async function (req, res) {
     });
 });
 
+//User articles
 router.get('/articles', ensureAuthenticated, async function (req, res) {
     const articles = await Article.find({ email: req.user.email }).sort({ createdDate: 'desc' });
     res.render('myarticles', { 
@@ -30,26 +32,6 @@ router.get('/articles', ensureAuthenticated, async function (req, res) {
         articles: articles
      });
 });
-
-router.get('/new', ensureAuthenticated, function (req, res) {
-    res.render('new', { article: new Article() });
-});
-
-// router.post('/search', async function(req,res) {
-//     const { search } = req.body;
-//     const articles = await Article.find();
-//     console.log(search);
-//     var searchResults = [];
-//     for(var i = 0; i < articles.length; i++) {
-//         if (articles[i].name == search) {
-//             searchResults.push(articles[i]);
-//         }
-//     }
-//     console.log(searchResults);
-//     res.render('dashboard', {
-//         name: req.user.name
-//     });
-// });
 
 router.post('/articles', function(req, res) {
     const { title, description, content } = req.body;
@@ -86,6 +68,35 @@ router.post('/articles', function(req, res) {
         });
 }); 
 
+//New article
+router.get('/new', ensureAuthenticated, function (req, res) {
+    res.render('new', { article: new Article() });
+});
+
+//Search feature
+router.get('/search', ensureAuthenticated, function (req, res) {
+    res.redirect('/user/feed');
+});
+
+router.post('/search', async function(req,res) {
+    const { search } = req.body;
+    const articles = await Article.find();
+    console.log(search.toLowerCase());
+    for(var i = 0; i < articles.length; i++) {
+        if (articles[i].name.toLowerCase() != search.toLowerCase()) {
+            articles.splice(i,1);
+            i -= 1;
+        }
+    }
+    console.log(articles);
+    res.render('search', {
+        name: req.user.name,
+        search,
+        articles: articles
+    });
+});
+
+//Shows articles from feed
 router.get('/feed/:slug', async function (req, res) {
     const article = await Article.findOne({ slug: req.params.slug });
     if(article == null) {
@@ -94,6 +105,7 @@ router.get('/feed/:slug', async function (req, res) {
     res.render('show', {article: article, name: req.user.name});
 });
 
+//Shows user created articles
 router.get('/articles/:slug', async function (req, res) {
     const article = await Article.findOne({ slug: req.params.slug });
     if(article == null) {
@@ -102,15 +114,16 @@ router.get('/articles/:slug', async function (req, res) {
     res.render('show', {article: article, name: req.user.name});
 });
 
+//Deletes user created articles
 router.delete('/articles/:id', async function (req, res) {
     await Article.findByIdAndDelete(req.params.id);
     req.flash('error_msg', 'The article has been deleted');
     res.redirect('/user/articles');
 });
 
+//Edit feature
 router.get('/articles/edit/:id', async function (req, res) {
     const article = await Article.findById(req.params.id);
-    // console.log(article.title);
     res.render('edit', { 
         title: req.body.title,
         description: req.body.description,
@@ -127,7 +140,6 @@ router.put('/articles/:id', async function (req, res) {
     article.content = req.body.content;
     try {
         article = await article.save();
-        // console.log("Done");
         req.flash('success_msg', 'The article has been updated');
         res.redirect('/user/articles');
     } 
@@ -139,7 +151,6 @@ router.put('/articles/:id', async function (req, res) {
             content: req.body.content,
             article: article });
         req.flash('error_msg', 'Please fill all the fields');
-        // console.log("ERRORRRRRRRRRRRRRR!!!");
     }
 });
 

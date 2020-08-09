@@ -42,11 +42,13 @@ const ArticleSchema = new mongoose.Schema({
 });
 
 ArticleSchema.pre('validate', function(next) {
+    //Creates a URL slug from article title
     if (this.title) {
         this.slug = slugify(this.title, { lower: true,
         strict: true });
     }
 
+    //Converts content to markdown language and sanitizes it
     if(this.content) {
         this.sanitizedHtml = dompurify.sanitize(marked(this.content));
     }

@@ -5,14 +5,18 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override');
+const dotenv = require('dotenv');
 
 const app = express();
 
 //Passport config
 require('./config/passport')(passport);
 
+//Dotenv config
+dotenv.config();
+
 //DB Config
-const db = require('./config/keys').MongoURI; 
+const db = process.env.MONGO_URI;
 
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     .then(function() {
@@ -34,7 +38,7 @@ app.use(methodOverride('_method'));
 
 //Express session middleware
 app.use(session({
-    secret: 'secret',
+    secret: process.env.SESSION_SECRET,
     resave: true, 
     saveUninitialized: true
 }));

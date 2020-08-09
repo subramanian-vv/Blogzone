@@ -1,0 +1,37 @@
+<%- include('./partials/messages.ejs'); %>
+<%- include('./partials/nav.ejs'); %>
+
+<h3 class="mb-3 mt-4 text-center"> Search results for: <%= search %> </h3>
+
+<% if(articles.length == 0) { %>
+    <hr>
+    <h4 class="mt-4 text-center"> No results found! </h4>
+  <% } %>
+
+<% articles.forEach(function (article) { %>
+
+    <div class="card mt-4 border-dark">
+      <h3 class="card-header text-center">
+        <%= article.title %>
+      </h3>
+        <div class="card-body">
+          <div class="card-title mb-4"> Description: <strong> <%= article.description %> </strong> </div>
+          <hr>
+          <a href="/user/feed/<%= article.slug %>" class="btn btn-success btn-lg mr-2"> Read </a>
+
+          <% if(search.toLowerCase() == name.toLowerCase()) { %>
+            <a href="/user/articles/edit/<%= article.id %>" class="btn btn-info btn-lg mr-2">Edit</a>
+          <form action="/user/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-primary btn-lg">Delete</button>
+          </form>
+          <% } %>
+
+        </div>
+        <div class="card-footer mb-2"> Created on : <strong> <%= article.createdDate.toLocaleDateString() %> </strong>
+          <div class="float-right"> Created by: <strong> <%= article.name %> </strong> </div>
+        </div>
+
+    </div>
+
+<% }) %>
+
