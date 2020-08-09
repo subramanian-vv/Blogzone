@@ -8,8 +8,6 @@ const User = require('../models/User');
 
 //Article model
 const Article = require('../models/Article');
-const { restart } = require('nodemon');
-const e = require('express');
 
 router.get('/feed', ensureAuthenticated, async function (req, res) {
     const articles = await Article.find().sort({ createdDate: 'desc' });
@@ -36,6 +34,22 @@ router.get('/articles', ensureAuthenticated, async function (req, res) {
 router.get('/new', ensureAuthenticated, function (req, res) {
     res.render('new', { article: new Article() });
 });
+
+// router.post('/search', async function(req,res) {
+//     const { search } = req.body;
+//     const articles = await Article.find();
+//     console.log(search);
+//     var searchResults = [];
+//     for(var i = 0; i < articles.length; i++) {
+//         if (articles[i].name == search) {
+//             searchResults.push(articles[i]);
+//         }
+//     }
+//     console.log(searchResults);
+//     res.render('dashboard', {
+//         name: req.user.name
+//     });
+// });
 
 router.post('/articles', function(req, res) {
     const { title, description, content } = req.body;
