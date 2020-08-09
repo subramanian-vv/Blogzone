@@ -12,6 +12,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="/user/new" style="color: wheat;"> New Article <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/help" style="color: wheat;"> Help <span class="sr-only">(current)</span></a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" action="/user/search" method="POST">
         <input 
@@ -25,7 +28,7 @@
         value="<%= typeof search != 'undefined' ? search : '' %>">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
-      <ul class="navbar-nav mr-auto ml-lg-5">
+      <ul class="navbar-nav ml-lg-5">
           <li class="nav-item">
             <a href="/logout" class="btn btn-outline-danger">Logout</a>
           </li>

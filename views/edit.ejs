@@ -3,6 +3,9 @@
 
 <h1 class="mb-3 mt-2 text-center"> Edit article </h1>
 
+<p class="text-center mt-4"> <i> The content is rendered as per the <strong> markdown syntax . 
+    <a href="/user/help" target="_blank"> Visit </a> </strong> to know more. </i> </p>
+<hr>
 <form action="/user/articles/<%= article.id %>?_method=PUT" method="post">
     <%- include('./partials/form') %>
 </form>

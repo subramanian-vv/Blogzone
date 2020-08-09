@@ -68,6 +68,11 @@ router.post('/articles', function(req, res) {
         });
 }); 
 
+//Markdown cheatsheet
+router.get('/help', ensureAuthenticated, function (req, res) {
+    res.render('markdown');
+});
+
 //New article
 router.get('/new', ensureAuthenticated, function (req, res) {
     res.render('new', { article: new Article() });
