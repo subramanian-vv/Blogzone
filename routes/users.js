@@ -80,15 +80,13 @@ router.get('/search', ensureAuthenticated, function (req, res) {
 
 router.post('/search', async function(req,res) {
     const { search } = req.body;
-    const articles = await Article.find();
-    console.log(search.toLowerCase());
+    const articles = await Article.find().sort({ createdDate: 'desc' });
     for(var i = 0; i < articles.length; i++) {
         if (articles[i].name.toLowerCase() != search.toLowerCase()) {
             articles.splice(i,1);
             i -= 1;
         }
     }
-    console.log(articles);
     res.render('search', {
         name: req.user.name,
         search,

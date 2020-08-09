@@ -5,7 +5,6 @@ const flash = require('express-flash');
 const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override');
-const dotenv = require('dotenv');
 
 const app = express();
 
@@ -13,7 +12,9 @@ const app = express();
 require('./config/passport')(passport);
 
 //Dotenv config
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 //DB Config
 const db = process.env.MONGO_URI;
