@@ -1,16 +1,24 @@
 {
-  "name": "backend",
+  "name": "blogzone",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple blog made with markdown language",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subramanian-vv/Blogzone.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subramanian-vv/Blogzone/issues"
+  },
+  "homepage": "https://github.com/subramanian-vv/Blogzone#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
