@@ -58,7 +58,8 @@ app.use(function (req, res, next) {
 app.use('/', require('./routes/index'));
 app.use('/user', require('./routes/users'));
 
-//Listening on localhost:3000
+//Listening on localhost:3000 or environment variable PORT
+const PORT = process.env.PORT || 3000;
 app.listen(3000, function() {
-    console.log("Listening on port 3000");
+    console.log(`Listening on port ${PORT}`);
 });
