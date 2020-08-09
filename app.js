@@ -60,6 +60,6 @@ app.use('/user', require('./routes/users'));
 
 //Listening on localhost:3000 or environment variable PORT
 const PORT = process.env.PORT || 3000;
-app.listen(3000, function() {
+app.listen(PORT, function() {
     console.log(`Listening on port ${PORT}`);
 });
