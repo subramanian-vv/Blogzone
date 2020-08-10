@@ -86,16 +86,26 @@ router.get('/search', ensureAuthenticated, function (req, res) {
 router.post('/search', async function(req,res) {
     const { search } = req.body;
     const articles = await Article.find().sort({ createdDate: 'desc' });
+    const users = await User.find().sort({ date: 'desc' });
+
     for(var i = 0; i < articles.length; i++) {
         if (articles[i].name.toLowerCase() != search.toLowerCase()) {
             articles.splice(i,1);
             i -= 1;
         }
     }
+    for(var j = 0; j < users.length; j++) {
+        if (users[j].name.toLowerCase() != search.toLowerCase()) {
+            users.splice(j,1);
+            j -= 1;
+        }
+    }
+
     res.render('search', {
         name: req.user.name,
         search,
-        articles: articles
+        articles: articles,
+        users: users
     });
 });
 
@@ -155,6 +165,11 @@ router.put('/articles/:id', async function (req, res) {
             article: article });
         req.flash('error_msg', 'Please fill all the fields');
     }
+});
+
+//Handling 404 errors
+router.get('*', function (req, res) { 
+    res.render('404'); 
 });
 
 module.exports = router;

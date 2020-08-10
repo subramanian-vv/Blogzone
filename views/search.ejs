@@ -3,9 +3,20 @@
 
 <h3 class="mb-3 mt-4 text-center"> Search results for: <%= search %> </h3>
 
-<% if(articles.length == 0) { %>
+<% if(articles.length == 0 && users.length == 0) { %>
     <hr>
     <h4 class="mt-4 text-center"> No results found! </h4>
+  <% } else if(users.length != 0) { %>
+    <hr>
+    <% users.forEach(function (user) { %>
+
+    <h4 class="mt-4 text-center"> User found with name <%= user.name %> </h4>
+    <% if(articles.length == 0) { %>
+      <hr>
+      <h4 class="mt-4 text-center"> No articles found! </h4>
+    <% } %>
+
+    <% }) %>
   <% } %>
 
 <% articles.forEach(function (article) { %>
