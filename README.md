@@ -3,6 +3,6 @@ A simple **blog** feature with markdown syntax, created using NodeJS, ExpressJS 
 ### Features:
 - User feed to view others' articles.
 - Articles page to view, edit or delete user-created articles.
-- Search feature to search for users.
+- Search feature to search for users and their articles.
 - Markdown cheat sheet to get familiar with the syntax.
 - Mobile responsive.
