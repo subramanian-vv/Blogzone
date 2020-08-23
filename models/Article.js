@@ -26,6 +26,9 @@ const ArticleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userfav: {
+        type: Array
+    },
     createdDate: {
         type: Date,
         default: Date.now

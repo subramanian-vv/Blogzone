@@ -1,0 +1,36 @@
+<%- include('./partials/messages.ejs'); %>
+<%- include('./partials/nav.ejs'); %>
+
+<h1 class="mb-3 mt-4 text-center">Welcome to your favourites, <%= name %> !</h1> <hr>
+
+<% let count = 0 %>
+
+<% articles.forEach(function (article) { %>
+      
+      <% if(article.userfav.indexOf(email) != -1) { %>
+        <% count++ %>
+        <div class="card mt-4 border-dark">
+          <h3 class="card-header text-center">
+            <%= article.title %>
+          </h3>
+            <div class="card-body" style="background-color: aliceblue;">
+              <div class="card-title mb-4"> Description: <strong> <%= article.description %> </strong> </div>
+              <hr>
+              <a href="/user/feed/<%= article.slug %>" class="btn btn-success btn-lg mr-2">Read </a>
+
+                <form action="/user/articles/<%= article.id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn">&#9733;</button>
+                </form>
+
+            </div>
+            <div class="card-footer mb-2"> Created on : <strong> <%= article.createdDate.toLocaleDateString() %> </strong>
+              <div class="float-right"> Created by: <strong> <%= article.name %> </strong> </div>
+            </div>
+        </div>
+      <% } %>
+
+<% }) %>
+
+<% if(count == 0) { %>
+  <h4 class="mt-4 text-center"> Nothing to show in favourites! </h4>
+<% } %>

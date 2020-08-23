@@ -16,7 +16,18 @@
         <div class="card-body" style="background-color: aliceblue;">
           <div class="card-title mb-4"> Description: <strong> <%= article.description %> </strong> </div>
           <hr>
-          <a href="/user/feed/<%= article.slug %>" class="btn btn-success btn-lg">Read </a>
+          <a href="/user/feed/<%= article.slug %>" class="btn btn-success btn-lg mr-2">Read </a>
+            
+              <% if(article.userfav.indexOf(email) != -1) { %>
+                <form action="/user/articles/<%= article.id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn">&#9733;</button>
+                </form>
+              <% } else { %>
+                <form action="/user/articles/<%= article.id %>" method="POST" class="d-inline">
+                  <button type="submit" class="btn">&#9734;</button>
+                </form>
+              <% } %>
+    
         </div>
         <div class="card-footer mb-2"> Created on : <strong> <%= article.createdDate.toLocaleDateString() %> </strong>
           <div class="float-right"> Created by: <strong> <%= article.name %> </strong> </div>
@@ -25,3 +36,6 @@
     </div>
 
 <% }) %>
+
+
+ 

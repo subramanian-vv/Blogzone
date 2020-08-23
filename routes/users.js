@@ -20,6 +20,7 @@ router.get('/feed', ensureAuthenticated, async function (req, res) {
 }
     res.render('dashboard', {
         name: req.user.name,
+        email: req.user.email,
         articles: articles
     });
 });
@@ -107,6 +108,33 @@ router.post('/search', async function(req,res) {
         articles: articles,
         users: users
     });
+});
+
+//Shows favourite articles
+router.get('/feed/favourites',ensureAuthenticated, async function(req, res) {
+    const articles = await Article.find().sort({ createdDate: 'desc' });
+    res.render('favourites', {
+        articles: articles, 
+        name: req.user.name, 
+        email: req.user.email });
+});
+
+//Handles adding and removing of favourite articles
+router.post('/articles/:id', async function(req, res) {
+    let article = await Article.findById(req.params.id);
+    const useremail = req.user.email;
+    const userId = article.userfav.indexOf(useremail);
+    if(userId != -1) {
+        article.userfav.splice(userId,1);
+        article = await article.save();
+        req.flash('success_msg', 'The article has been removed from favourites');
+        res.redirect('/user/feed');
+    } else {
+        article.userfav.push(useremail);
+        article = await article.save();
+        req.flash('success_msg', 'The article has been added to favourites');
+        res.redirect('/user/feed/favourites');
+    }
 });
 
 //Shows articles from feed
