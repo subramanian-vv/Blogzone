@@ -1,5 +1,5 @@
 module.exports = {
-    //Ensures users don't access the dashboard when logged in
+    //Ensures users don't access the dashboard when logged out
     ensureAuthenticated: function (req, res, next) {
         if(req.isAuthenticated()) {
             return next();
